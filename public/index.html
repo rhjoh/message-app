@@ -11,7 +11,18 @@
     <body>
         <div class="container">
             <div class="header"><p>Chat Lobby</p></div>
-            <div class="sidebar"></div>
+            <div class="sidebar">
+
+                <label>Username:</label>
+                <input type="text" name="usernameInput" id="usernameInput">
+                <br>
+                <label>Password:</label>
+                <input type="password" name="passwordInput" id="passwordInput">
+                <button id="buttonLogin">Login</button>
+                <p id="loggedInUserName">Login status: unknown</p>
+
+
+            </div>
             <div class="chat-panel" id="chat-panel"><p></p></div>
             <div class="chat-input">
                 <!-- Input should be text area? -->

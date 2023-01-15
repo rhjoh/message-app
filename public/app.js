@@ -1,8 +1,9 @@
-const messageButton = document.getElementById('button_messageSend');
-const messageInput = document.getElementById('messageInput');
+const messageButton = document.getElementById('button_messageSend')
+const messageInput = document.getElementById('messageInput')
 
 const updateButton = document.getElementById('button_Update')
 const chatContainer = document.getElementById('chat-panel')
+const loginButton = document.getElementById('buttonLogin')
 
 
 function sendMessage(){
@@ -16,8 +17,7 @@ function sendMessage(){
     'message': messageBody
 
   }
-
-  fetch('/sendMessage', {
+    fetch('/sendMessage', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -27,16 +27,48 @@ function sendMessage(){
 
   .then((response) => console.log(response))
   .catch((error) => (console.log("Error", error)))
-
 }
 
-function testGet(){
-  fetch('/messages')
+function loginAuth(loginUser, loginPass){
+
+  const loginObject = {
+    'username': loginUser,
+    'password': loginPass
+  }
+
+  fetch('/userAuth', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(loginObject)
+  })
   .then((response) => response.json())
-  .then((json) => console.log(json))
+  .then((jsonResponse) => handleAuthResponse(jsonResponse))
+  .catch((error) => console.log(error))
+
+  function handleAuthResponse(data){
+    //console.log(data)
+    const loggedInUserNameText = document.getElementById('loggedInUserName')
+
+    if(data.loggedInUserName != null){
+      console.log("Got valid user")
+      const loggedInUserName = (data.loggedInUserName).toString()
+      loggedInUserNameText.innerHTML = `Logged in as: ${loggedInUserName}`
+
+      getMessages(data.loggedInUserID);
+
+    } else {
+      console.log("Invalid user")
+      loggedInUserNameText.innerHTML = "Invalid username"
+      const chatPanel = document.getElementById('chat-panel')
+      chatPanel.innerHTML = "Error loading users messages" // This isn't removed on valid login because getMessages() only clears '.chat-message'
+    }
+  
+  }
 }
 
-function getMessages(){
+function getMessages(userID){
 
   document.querySelectorAll('.chat-message').forEach((element) => element.remove())
 
@@ -48,6 +80,7 @@ function getMessages(){
 
   function populateChatPanel(data) {
 
+    console.log(userID)
     console.log(data)
     for(let n = 0; n  < (data.length); n++){
 
@@ -57,19 +90,8 @@ function getMessages(){
     const messageMessage = document.createElement('p')
     const lineBreak = document.createElement('br')
 
-    //const sanitisedTimestamp = new Date(data[n].timestamp)
-    //console.log(sanitisedTimestamp.toDateString())
-
     const sanitisedTimestamp = new Intl.DateTimeFormat('en-GB', { dateStyle: 'short', timeStyle: 'long'}).format(new Date(data[n].timestamp));
-    console.log(sanitisedTimestamp.slice(0, (sanitisedTimestamp.length - 7)))
 
-    // 15/01/2023, 00:16:51 GMT+11
-    // 2023-01-14T12:48:29.017Z
-    // San: 
-    // Sun Jan 15 2023 00:16:51 GMT+1100 (Australian Eastern Daylight Time)
-
-
-    //messageTimestamp.innerHTML = data[n].timestamp
     messageTimestamp.innerHTML = sanitisedTimestamp.slice(0, (sanitisedTimestamp.length - 7))
     messageUserID.innerHTML = data[n].userID
     messageMessage.innerHTML = data[n].message
@@ -78,7 +100,6 @@ function getMessages(){
     messageUserID.classList.add('chat-userid')
     messageMessage.classList.add('chat-message')
     messageDiv.appendChild(messageTimestamp)
-    //messageDiv.appendChild(messageUserID)
     messageDiv.appendChild(messageMessage)
     messageDiv.appendChild(lineBreak)
 
@@ -92,8 +113,16 @@ function getMessages(){
 
   window.onload = (e) => {
     console.log("Page loaded.")
-    getMessages();
+    //getMessages();
   }
+
+  loginButton.addEventListener('click', (e) => {
+    const loginUser = document.getElementById('usernameInput').value
+    const loginPass = document.getElementById('passwordInput').value
+
+    loginAuth(loginUser, loginPass);
+
+  })
 
   messageButton.addEventListener('click', (e) => {
     //document.querySelectorAll('.chat-message').forEach((element) => element.remove())

@@ -87,3 +87,11 @@ body {
     display: inline;
     color: #E0E1DD
 }
+
+.sidebar label{
+    color: #E0E1DD
+}
+
+.sidebar p{
+    color: #E0E1DD
+}
