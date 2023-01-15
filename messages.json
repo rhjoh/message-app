@@ -1,0 +1,20 @@
+[
+    {
+    "id": "001",
+    "timestamp": "2023-01-10T11:39:16.500",
+    "userID": "0",
+    "message": "First message"
+    },
+    {
+    "id": "002",
+    "timestamp": "2023-01-11T11:39:16.500",
+    "userID": "0",
+    "message": "Second message"
+    },
+    {
+        "id": "003",
+        "timestamp": "2022-01-11T11:39:16.500",
+        "userID": "0",
+        "message": "Third message"
+    }
+]
