@@ -72,7 +72,7 @@ function getMessages(userID){
 
   document.querySelectorAll('.chat-message').forEach((element) => element.remove())
 
-  fetch('/messages')
+  fetch('/messages&userid=' + userID)
   .then((response) => response.json())
   .then((data) => populateChatPanel(data))
   .catch((error) => (console.log("Error", error)))

@@ -4,7 +4,9 @@ const modelspullData = require('../models/pullData.js')
 
 function getMessages(req, res){
 
-    const jsonFile = modelspullData.getData();
+    const userid = (req.params).id
+    console.log("UserID: " + userid)
+    const jsonFile = modelspullData.getData(userid);
     res.write(JSON.stringify(jsonFile))
     res.end()
     

@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 })
 
-app.get('/messages', (req, res) => {
+app.get('/messages&userid=:id', (req, res) => {
     getMessages.getMessages(req, res)
 
 })

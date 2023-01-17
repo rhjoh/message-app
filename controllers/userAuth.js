@@ -4,14 +4,6 @@ let loggedInStatus = 0;
 let loggedInUserID;
 let loggedInUserName;
 
-/* function getUsers(){
-
-    const userFile = fs.readFileSync('./userFile.json', function(error){
-        console.log(error)
-    })
-    return JSON.parse(userFile)
-} */
-
 function userAuth(req, res){
 
 
@@ -21,10 +13,9 @@ function userAuth(req, res){
 
     const userFile = JSON.parse(readFile)
     res.status(201)
-    //const userFile = getUsers()
     const reqString = JSON.stringify(req.body);
     const reqObject = JSON.parse(reqString)
-    console.log(reqObject)
+
 
     for(i = 0; i < userFile.length; i++){        
         
@@ -34,11 +25,10 @@ function userAuth(req, res){
             loggedInStatus = 1
             loggedInUserID = userFile[i].id
             loggedInUserName = userFile[i].username
-            console.log(loggedInUserID)
+            console.log("Logged in userID: " + loggedInUserID)
             break
 
         } else {
-            console.log("Didn't find user")
             loggedInStatus = null
             loggedInUserID = "000"
             loggedInUserName = null
