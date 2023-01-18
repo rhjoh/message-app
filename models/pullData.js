@@ -1,5 +1,6 @@
 const { json } = require('express');
 const fs = require('fs');
+
 function getData(userid){
 
     const jsonFile = fs.readFileSync('./messages.json', function(error){

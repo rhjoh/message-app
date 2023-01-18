@@ -1,10 +1,7 @@
 const messageButton = document.getElementById('button_messageSend')
 const messageInput = document.getElementById('messageInput')
-
-const updateButton = document.getElementById('button_Update')
 const chatContainer = document.getElementById('chat-panel')
 const loginButton = document.getElementById('buttonLogin')
-
 
 function sendMessage(){
 
@@ -48,14 +45,12 @@ function loginAuth(loginUser, loginPass){
   .catch((error) => console.log(error))
 
   function handleAuthResponse(data){
-    //console.log(data)
     const loggedInUserNameText = document.getElementById('loggedInUserName')
 
     if(data.loggedInUserName != null){
       console.log("Got valid user")
       const loggedInUserName = (data.loggedInUserName).toString()
       loggedInUserNameText.innerHTML = `Logged in as: ${loggedInUserName}`
-
       getMessages(data.loggedInUserID);
 
     } else {
@@ -105,15 +100,11 @@ function getMessages(userID){
 
     chatContainer.appendChild(messageDiv)
     }
-
   }
-
-  }
-
+}
 
   window.onload = (e) => {
     console.log("Page loaded.")
-    //getMessages();
   }
 
   loginButton.addEventListener('click', (e) => {
@@ -121,11 +112,9 @@ function getMessages(userID){
     const loginPass = document.getElementById('passwordInput').value
 
     loginAuth(loginUser, loginPass);
-
   })
 
   messageButton.addEventListener('click', (e) => {
-    //document.querySelectorAll('.chat-message').forEach((element) => element.remove())
     sendMessage()
     getMessages()
     }
