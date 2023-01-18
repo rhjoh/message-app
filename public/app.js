@@ -1,6 +1,7 @@
 const messageButton = document.getElementById('button_messageSend')
 const messageInput = document.getElementById('messageInput')
 const chatContainer = document.getElementById('chat-panel')
+const sideBar = document.getElementById('sidebar')
 const loginButton = document.getElementById('buttonLogin')
 
 function sendMessage(){
@@ -51,7 +52,8 @@ function loginAuth(loginUser, loginPass){
       console.log("Got valid user")
       const loggedInUserName = (data.loggedInUserName).toString()
       loggedInUserNameText.innerHTML = `Logged in as: ${loggedInUserName}`
-      getMessages(data.loggedInUserID);
+      getMessages(data.loggedInUserID)
+      getUsers()
 
     } else {
       console.log("Invalid user")
@@ -103,6 +105,30 @@ function getMessages(userID){
   }
 }
 
+function getUsers(){
+  fetch('/users')
+  .then((response) => response.json())
+  .then((json) => populateUsernames(json))
+
+  function populateUsernames(data){
+
+    const sendMessageText = document.createElement('p')
+    sendMessageText.innerHTML = "Send a message to: "
+    sideBar.appendChild(sendMessageText)
+
+    for(i = 0; i < data.length; i++){
+      const usernameDiv = document.createElement('div')
+      const usernameName = document.createElement('p')
+
+      usernameName.innerHTML = data[i].username
+      usernameDiv.classList.add('sidebar-username')
+      usernameDiv.appendChild(usernameName)
+      sideBar.appendChild(usernameDiv)
+
+    }
+  }
+}
+
   window.onload = (e) => {
     console.log("Page loaded.")
   }
@@ -119,3 +145,18 @@ function getMessages(userID){
     getMessages()
     }
   )
+
+  sideBar.addEventListener('click', (e) => {
+    // Event listener for the username div, not <p>.
+    if(e.target.parentElement.className == 'sidebar-username'){
+
+      /* 
+        TODO:
+        Need to get the userID from the username in the <p> body, pass that to getMessages(userID).
+        Need to save the returned /users object globally (ln 111) to match username:userID. 
+
+      
+      */
+
+    }
+  })

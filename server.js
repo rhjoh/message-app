@@ -8,6 +8,7 @@ const fs = require('fs');
 const getMessages = require('./controllers/getmessages.js')
 const sendMessage = require('./controllers/sendmessage.js');
 const userAuth = require('./controllers/userAuth.js');
+const getusers = require('./controllers/getusers.js');
 const { allowedNodeEnvironmentFlags } = require('process');
 
 const app = express();
@@ -24,6 +25,10 @@ app.get('/', (req, res) => {
 app.get('/messages&userid=:id', (req, res) => {
     getMessages.getMessages(req, res)
 
+})
+
+app.get('/users', (req, res) => {
+    getusers.getUsers(req, res)
 })
 
 app.post('/sendMessage', (req, res) => {

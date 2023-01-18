@@ -95,3 +95,13 @@ body {
 .sidebar p{
     color: #E0E1DD
 }
+
+.sidebar-username {
+    color:#E0E1DD;
+    margin-left: 15px;
+    background-color:slategrey;
+}
+
+.sidebar-username:hover{
+    background-color: cadetblue;
+}
