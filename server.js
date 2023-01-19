@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 })
 
-app.get('/messages&userid=:id', (req, res) => {
+app.get('/messages&userid=:userid&senderid=:senderid', (req, res) => {
     getMessages.getMessages(req, res)
 
 })

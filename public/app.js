@@ -4,6 +4,10 @@ const chatContainer = document.getElementById('chat-panel')
 const sideBar = document.getElementById('sidebar')
 const loginButton = document.getElementById('buttonLogin')
 
+
+let userListObject = []
+let currentLoggedInUserId = 0;
+
 function sendMessage(){
 
   const messageBody = messageInput.value;
@@ -49,7 +53,7 @@ function loginAuth(loginUser, loginPass){
     const loggedInUserNameText = document.getElementById('loggedInUserName')
 
     if(data.loggedInUserName != null){
-      console.log("Got valid user")
+      currentLoggedInUserId = data.loggedInUserID
       const loggedInUserName = (data.loggedInUserName).toString()
       loggedInUserNameText.innerHTML = `Logged in as: ${loggedInUserName}`
       getMessages(data.loggedInUserID)
@@ -65,11 +69,11 @@ function loginAuth(loginUser, loginPass){
   }
 }
 
-function getMessages(userID){
+function getMessages(userID, senderID){
 
   document.querySelectorAll('.chat-message').forEach((element) => element.remove())
 
-  fetch('/messages&userid=' + userID)
+  fetch('/messages&userid=' + userID + '&senderid=' + senderID)
   .then((response) => response.json())
   .then((data) => populateChatPanel(data))
   .catch((error) => (console.log("Error", error)))
@@ -77,8 +81,8 @@ function getMessages(userID){
 
   function populateChatPanel(data) {
 
-    console.log(userID)
-    console.log(data)
+    //console.log(userID)
+    //console.log(data)
     for(let n = 0; n  < (data.length); n++){
 
     const messageDiv = document.createElement('div')
@@ -89,7 +93,7 @@ function getMessages(userID){
 
     const sanitisedTimestamp = new Intl.DateTimeFormat('en-GB', { dateStyle: 'short', timeStyle: 'long'}).format(new Date(data[n].timestamp));
 
-    messageTimestamp.innerHTML = sanitisedTimestamp.slice(0, (sanitisedTimestamp.length - 7))
+    messageTimestamp.innerHTML = (sanitisedTimestamp.slice(0, (sanitisedTimestamp.length - 7))).replace(',', '')
     messageUserID.innerHTML = data[n].userID
     messageMessage.innerHTML = data[n].message
     messageDiv.classList.add('chat-message')
@@ -108,7 +112,15 @@ function getMessages(userID){
 function getUsers(){
   fetch('/users')
   .then((response) => response.json())
-  .then((json) => populateUsernames(json))
+  .then((json) => {
+    // Push users to global userListObject.
+    for(i = 0; i < (json.length); i++){
+      userListObject.push(json[i])
+    }
+    populateUsernames(json)
+  } 
+    
+    )
 
   function populateUsernames(data){
 
@@ -150,13 +162,19 @@ function getUsers(){
     // Event listener for the username div, not <p>.
     if(e.target.parentElement.className == 'sidebar-username'){
 
-      /* 
-        TODO:
-        Need to get the userID from the username in the <p> body, pass that to getMessages(userID).
-        Need to save the returned /users object globally (ln 111) to match username:userID. 
+      const clickedUsername = (e.target.innerHTML)
+      const clickedUserID = function(username){
+        for(i = 0; i < userListObject.length; i++){
+          if(username == userListObject[i].username){
+            return userListObject[i].id
+          }
+        }
+      }
+      console.log(clickedUserID(clickedUsername))
+      getMessages(currentLoggedInUserId, clickedUserID(clickedUsername))
+      console.log(currentLoggedInUserId)
 
-      
-      */
-
+      // sender: 003 / Dave
+      // Recip: 002 / Rhys
     }
   })
