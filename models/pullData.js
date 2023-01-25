@@ -2,7 +2,6 @@ const { json } = require('express');
 const fs = require('fs');
 
 function getData(userid, senderid){
-
     const jsonFile = fs.readFileSync('./messages.json', function(error){
         console.log(error)
     })
@@ -11,7 +10,6 @@ function getData(userid, senderid){
     let messagesByRecipAndSender = []
 
     function getMessagesByRecip(dataFile){
-        
         for(element in dataFile){
             if(((dataFile[element].recip_id == userid) && dataFile[element].sender_id == senderid) || (dataFile[element].recip_id == senderid) && dataFile[element].sender_id == userid){
                 messagesByRecipAndSender.push(dataFile[element])
@@ -19,7 +17,6 @@ function getData(userid, senderid){
                 console.log("Found matching userID and senderID")
             }
         }
-        
     }
     getMessagesByRecip(dataFile);
     return messagesByRecipAndSender
@@ -28,5 +25,3 @@ function getData(userid, senderid){
 module.exports = {
     getData
 }
-
-// || dataFile[element].recip_id == 0
