@@ -76,16 +76,19 @@ body {
 .chat-timestamp {
     color:darkslategray;
     display: inline;
+    padding-right: 10px;
 
 }
 
-.chat-userid {
+.chat-username {
     display:inline;
+    color: #c015eb;
 }
 
 .chat-message {
     display: inline;
-    color: #E0E1DD
+    color: #E0E1DD;
+    padding-left: 10px;
 }
 
 .sidebar label{
