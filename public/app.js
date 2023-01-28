@@ -6,6 +6,7 @@ const loginButton = document.getElementById('buttonLogin')
 
 let userListObject = []
 let currentLoggedInUserId = 0;
+let messageRecipientID;
 
 function sendMessage(){
 
@@ -14,7 +15,7 @@ function sendMessage(){
   const messageObject = {
   
     'sender_id': currentLoggedInUserId,
-    'recip_id': 0,
+    'recip_id': messageRecipientID,
     'timestamp':  date.toISOString(),
     'message': messageBody
 
@@ -155,7 +156,7 @@ function getUsers(){
 
   messageButton.addEventListener('click', (e) => {
     sendMessage()
-    getMessages()
+    getMessages(currentLoggedInUserId, messageRecipientID)
     }
   )
 
@@ -171,6 +172,7 @@ function getUsers(){
           }
         }
       }
+      messageRecipientID = clickedUserID(clickedUsername)
       getMessages(currentLoggedInUserId, clickedUserID(clickedUsername))
     }
   })
