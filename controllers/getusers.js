@@ -15,6 +15,7 @@ function getUsers(req, res){
         }
         userObject.push(newObject)
     }
+    console.log(userObject)
     res.send(userObject)
 }
 
