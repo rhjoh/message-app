@@ -9,7 +9,9 @@ const getMessages = require('./controllers/getmessages.js')
 const sendMessage = require('./controllers/sendmessage.js');
 const userAuth = require('./controllers/userAuth.js');
 const getusers = require('./controllers/getusers.js');
+const signup = require('./controllers/signup.js');
 const { allowedNodeEnvironmentFlags } = require('process');
+const { sign } = require('crypto');
 
 const app = express();
 
@@ -38,6 +40,11 @@ app.post('/sendMessage', (req, res) => {
 
 app.post('/userAuth', (req, res) => {
     userAuth.userAuth(req, res)
+})
+
+app.post('/signup', (req, res) => {
+    signup.signupNewUser(req, res)
+
 })
 
 

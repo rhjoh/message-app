@@ -18,7 +18,7 @@ function userAuth(req, res){
 
 
     for(i = 0; i < userFile.length; i++){        
-        
+        // Could use Map() here? 
         if((reqObject.username == userFile[i].username) && (reqObject.password == userFile[i].password)){
             console.log(`Found user and pass for: ${userFile[i].username}`)
 
