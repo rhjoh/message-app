@@ -11,7 +11,6 @@ const userAuth = require('./controllers/userAuth.js');
 const getusers = require('./controllers/getusers.js');
 const signup = require('./controllers/signup.js');
 const { allowedNodeEnvironmentFlags } = require('process');
-const { sign } = require('crypto');
 
 const app = express();
 
