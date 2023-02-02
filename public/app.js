@@ -54,6 +54,14 @@ function loginAuth(loginUser, loginPass){
     if(data.loggedInUserName != null){
       currentLoggedInUserId = data.loggedInUserID
       console.log(currentLoggedInUserId)
+
+      document.getElementById('newUsername').remove()
+      document.getElementById('newPassword').remove()
+      document.getElementById('newUserText').remove()
+      document.getElementById('newUsernameText').remove()
+      document.getElementById('newPasswordText').remove()
+      signupButton.remove()
+
       getUsers()
 
     } else {
@@ -166,11 +174,12 @@ function addNewUser(user, pass){
     }
 }
 
-  window.onload = (e) => {
-    console.log("Page loaded.")
-  }
 
-
+  // Poll for new messages with selected user every 1sec. 
+  setInterval(() => {
+    console.log("Polling for new messages")
+    getMessages(currentLoggedInUserId, messageRecipientID)
+  }, 1000);
 
   loginButton.addEventListener('click', (e) => {
     const loginUser = document.getElementById('usernameInput').value
@@ -196,7 +205,6 @@ function addNewUser(user, pass){
   sideBar.addEventListener('click', (e) => {
     // Event listener for the username div, not <p>.
     if(e.target.parentElement.className == 'sidebar-username'){
-
       const clickedUsername = (e.target.innerHTML)
       const clickedUserID = function(username){
         for(i = 0; i < userListObject.length; i++){
