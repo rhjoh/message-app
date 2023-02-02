@@ -1,1 +1,52 @@
-[{"id":"001","timestamp":"2023-01-10T11:39:16.500","userID":"0","message":"First message"},{"id":"002","timestamp":"2023-01-11T11:39:16.500","userID":"0","message":"Second message"},{"id":"003","timestamp":"2022-01-11T11:39:16.500","userID":"0","message":"Third message"},{"id":"004","sender_id":"002","recip_id":"003","timestamp":"2023-01-11T11:39:16.500","message":"Message Rhys to Dave"},{"id":"005","sender_id":"003","recip_id":"002","timestamp":"2023-01-11T11:39:16.500","message":"Message Dave to Rhys"},{"id":"006","sender_id":"004","recip_id":"002","timestamp":"2023-01-11T11:39:16.500","message":"This is User3 to Rhys"},{"sender_id":"002","recip_id":"003","timestamp":"2023-01-28T07:17:42.084Z","message":"1234"},{"sender_id":"002","recip_id":"003","timestamp":"2023-01-28T07:18:02.745Z","message":"51234"},{"sender_id":"002","recip_id":"003","timestamp":"2023-01-28T07:32:36.192Z","message":"New test"},{"sender_id":"002","recip_id":"000","timestamp":"2023-01-28T07:32:45.014Z","message":"Message to user 123 "},{"sender_id":"002","recip_id":"004","timestamp":"2023-01-28T07:32:50.662Z","message":"Message to user 3"}]
+[
+    {
+    "sender_id": 2,
+    "recip_id": 3,
+    "timestamp": "2023-01-10T11:39:16.500",
+    "message": "First message Rhys to Dave"
+    },
+    {
+    "sender_id": 3,
+    "recip_id": 2,
+    "timestamp": "2023-01-10T11:39:16.500",
+    "message": "Second message Dave to Rhys" 
+    },
+    {
+    "sender_id": 1,
+    "recip_id": 4,
+    "timestamp": "2023-01-10T11:39:16.500",
+    "message": "User 1 to 4"
+    },
+    {
+    "sender_id": 4,
+    "recip_id": 1,
+    "timestamp": "2023-01-10T11:39:16.500",
+    "message": "User 4 to 1"
+    },
+    {
+    "sender_id": 4,
+    "recip_id": 2,
+    "timestamp": "2023-01-10T11:39:16.500",
+    "message": "User 4 to Rhys"
+    },
+    {
+    "sender_id": 4,
+    "recip_id": 3,
+    "timestamp": "2023-01-10T11:39:16.500",
+    "message": "Hello Dave!!"
+    },
+    {
+    "sender_id": 3,
+    "recip_id": 1,
+    "timestamp": "2023-01-10T11:39:16.500",
+    "message": "Message from Dave!"
+    },
+    {
+    "sender_id": 2,
+    "recip_id": 3,
+    "timestamp": "2023-01-10T11:39:16.500",
+    "message": "Random message message"
+    }
+]
+
+

@@ -3,6 +3,7 @@ const messageInput = document.getElementById('messageInput')
 const chatContainer = document.getElementById('chat-panel')
 const sideBar = document.getElementById('sidebar')
 const loginButton = document.getElementById('buttonLogin')
+const signupButton = document.getElementById('buttonSignup')
 
 let userListObject = []
 let currentLoggedInUserId = 0;
@@ -50,12 +51,9 @@ function loginAuth(loginUser, loginPass){
   .catch((error) => console.log(error))
 
   function handleAuthResponse(data){
-    const loggedInUserNameText = document.getElementById('loggedInUserName')
-
     if(data.loggedInUserName != null){
       currentLoggedInUserId = data.loggedInUserID
-      const loggedInUserName = (data.loggedInUserName).toString()
-      loggedInUserNameText.innerHTML = `Logged in as: ${loggedInUserName}`
+      console.log(currentLoggedInUserId)
       getUsers()
 
     } else {
@@ -143,15 +141,50 @@ function getUsers(){
   }
 }
 
+function addNewUser(user, pass){
+    fetch('/signup?username='+ user + '&password='+pass, {
+      method: 'POST',
+      })
+    .then((response) => response.json())
+    .then((data) => validateNewUser(data))
+    .catch((error) => console.log(error))
+
+    function validateNewUser(data){
+      if(data == "user_already_exists"){
+        alert("User already exists")
+      }
+      if(data == "user_created"){  
+        // Remove signup form and login with new creds. 
+        document.getElementById('newUsername').remove()
+        document.getElementById('newPassword').remove()
+        document.getElementById('newUserText').remove()
+        document.getElementById('newUsernameText').remove()
+        document.getElementById('newPasswordText').remove()
+        signupButton.remove()
+        loginAuth(user, pass)
+      }
+    }
+}
+
   window.onload = (e) => {
     console.log("Page loaded.")
   }
 
+
+
   loginButton.addEventListener('click', (e) => {
     const loginUser = document.getElementById('usernameInput').value
     const loginPass = document.getElementById('passwordInput').value
+    console.log(typeof(loginUser))
 
     loginAuth(loginUser, loginPass);
+  })
+
+  signupButton.addEventListener('click', (e) => {
+    const signupUser = document.getElementById('newUsername').value
+    const signupPass = document.getElementById('newPassword').value
+
+    addNewUser(signupUser, signupPass)
   })
 
   messageButton.addEventListener('click', (e) => {
